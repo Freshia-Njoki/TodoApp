@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#todo-form {
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 2px solid red; */
+  height: 80vh;
+  width: 60vw;
+}
+h1 {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+.create-item {
+  background-image: url(./images//bg-desktop-light.jpg);
+  height: 40vh;
+  background-color: whitesmoke;
+  /* border: 2px solid green; */
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  /* margin: 10px; */
+  background-color: whitesmoke;
+  color: rgb(66, 65, 65);
+  border-radius: 4px;
+  padding: 0.7rem;
+  width: 60vw;
+}
+
+#todo-input, #create-todo {
+  border: none;
+  background-color: whitesmoke;
+  font-size: 12px;
+  color: rgb(80, 68, 68);
+  width: 20rem;
+  /* border: 2px solid red; */
+}
+.todo-app{
+    /* border: 2px solid green; */
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+}
+.todo-list {
+  position: absolute;
+  display: block;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 60vw;
+}
+
+.items{
+    display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  /* margin: 0 10px; */
+  background-color: whitesmoke;
+  /* border-radius: 8px; */
+  padding: 0.7rem;
+  border: 1px solid rgb(231, 226, 226);
+  width: 60vw;
+}
+
+.todo-list > .items:nth-child(1){
+    border-radius: 5px 5px 0 0;
+}
+
+.footer{
+    border-radius: 0 0 5px 5px;
+font-size: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: rgb(150, 139, 139);
+    border: 2px solid red;
+}
+.footer{
+    display: flex;
+    flex-direction: row;
+    gap: 0.6rem;
+    /* margin: 0 10px; */
+    background-color: whitesmoke;
+    /* border-radius: 8px; */
+    padding: 0.7rem;
+    border: 1px solid rgb(231, 226, 226);
+    width: 60vw;
+}
+
+.states > ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    gap: 1rem;
+}
+
+.states > ul > li:nth-child(1){
+    color: rgb(24, 24, 214);
+}
