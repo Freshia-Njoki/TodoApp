@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function addTodo (todoElement) {
+  function addTodo(todoElement) {
     let todoCollection = document.createElement("div");
     todoCollection.classList.add("taskItem");
     console.log(todoCollection);
@@ -27,26 +27,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (todoText) {
       todoCollection.innerHTML = `
         <div class="list-item">
-            <div class="check ${
+            <div class="tick ${
               todoElement && todoElement.complete ? "active-state" : ""
             }"><img src="./images/icon-check.svg" alt=""></div>
-            <p class="task ${todoElement && todoElement.complete ? "finished" : ""}">${
-        todoText
-      }</p>
-            <button class="close"><img src="./images/icon-cross.svg" alt=""></button>
+            <span class="task ${
+              todoElement && todoElement.complete ? "finished" : ""
+            }">${todoText}</span>
+            <button class="cancel"><img src="./images/icon-cross.svg" alt=""></button>
         </div>
         <div class="hr"></div>`;
       todoList.insertBefore(todoCollection, footer);
       updateLocalStorage();
     }
 
-    let closeButton = todoCollection.querySelector(".close");
-    closeButton.addEventListener("click", () => {
+    let cancelButton = todoCollection.querySelector(".cancel");
+    cancelButton.addEventListener("click", () => {
       todoCollection.remove();
       updateLocalStorage();
     });
 
-    let checkButton = todoCollection.querySelector(".check");
+    let checkButton = todoCollection.querySelector(".tick");
     checkButton.addEventListener("click", () => {
       checkButton.classList.toggle("active-state");
       todoCollection.children[0].children[1].classList.toggle("complete");
@@ -84,11 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let todoItems = document.querySelectorAll(".taskItem");
     todoItems.forEach((item) => {
       if (filter === "Active") {
-        item.style.display = item.children[0].children[1].classList.contains("complete")
+        item.style.display = item.children[0].children[1].classList.contains(
+          "complete"
+        )
           ? "none"
           : "block";
       } else if (filter === "Completed") {
-        item.style.display = item.children[0].children[1].classList.contains("complete")
+        item.style.display = item.children[0].children[1].classList.contains(
+          "complete"
+        )
           ? "block"
           : "none";
       } else {
@@ -97,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     updateItemCount();
   }
-  
+
   let clearCompletedButton = document.querySelector(".completed");
   clearCompletedButton.addEventListener("click", () => {
     let todoItems = document.querySelectorAll(".taskItem");
@@ -111,10 +115,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let itemsLeft = document.querySelector(".items-left");
-const updateItemCount= (filter) => {
-  let todoItems = document.querySelectorAll(".taskItem");
+  const updateItemCount = (filter) => {
+    let todoItems = document.querySelectorAll(".taskItem");
     let activeTodoItems = document.querySelectorAll(".list-item .active-state");
     let remainingItems = todoItems.length - activeTodoItems.length;
     itemsLeft.innerText = `${remainingItems} items left`;
-}
+  };
 });

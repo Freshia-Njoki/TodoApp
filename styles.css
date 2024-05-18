@@ -68,12 +68,13 @@ h1 {
   align-items: center;
 }
 
-.list-item p {
-  width: 92%;
+.list-item span {
+  width: 100%;
   color: black;
+  /* border: 2px solid red; */
 }
 
-.list-item .check {
+.list-item .tick {
   width: 20px;
   height: 20px;
   border: 1px solid hsl(233, 14%, 35%);
@@ -83,7 +84,7 @@ h1 {
   margin-right: 1rem;
   cursor: pointer;
 }
-.list-item .close {
+.list-item .cancel {
   background: transparent;
   border: none;
   outline: none;
@@ -93,7 +94,7 @@ h1 {
   color: black;
 }
 
-.list-item:hover .close {
+.list-item:hover .cancel {
   opacity: 1;
 }
 
