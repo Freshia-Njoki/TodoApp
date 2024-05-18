@@ -111,7 +111,6 @@ h1 {
   color: rgb(150, 139, 139);
   background-color: whitesmoke;
   padding: 0.7rem;
-  border: 2px solid red;
   width: 60vw;
   justify-content: space-between;
   cursor: pointer;
