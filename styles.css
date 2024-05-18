@@ -42,7 +42,7 @@ h1 {
 #create-todo {
   border: none;
   background-color: whitesmoke;
-  font-size: 12px;
+  font-size: 15px;
   color: rgb(80, 68, 68);
   width: 20rem;
 }
@@ -71,7 +71,6 @@ h1 {
 .list-item span {
   width: 100%;
   color: black;
-  /* border: 2px solid red; */
 }
 
 .list-item .tick {
@@ -107,15 +106,14 @@ h1 {
   display: flex;
   flex-direction: row;
   gap: 0.6rem;
-  font-size: 10px;
+  font-size: 15px;
   border-radius: 5px;
   color: rgb(150, 139, 139);
   background-color: whitesmoke;
-  
   padding: 0.7rem;
-  
+  border: 2px solid red;
   width: 60vw;
-
+  justify-content: space-between;
   cursor: pointer;
 }
 
