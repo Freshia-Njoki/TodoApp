@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
       todoColl.innerHTML = `
         <div class="todo-li">
             <div class="check ${
-              todoElement && todoElement.completedItemdItemdItemdItemdItem ? "active-check" : ""
+              todoElement && todoElement.complete ? "active-check" : ""
             }"><img src="./images/icon-check.svg" alt=""></div>
-            <p class="ptag ${todoElement && todoElement.completedItemdItemdItemdItemdItem ? "completedItemdItemdItemdItemdItem" : ""}">${
+            <p class="ptag ${todoElement && todoElement.complete ? "complete" : ""}">${
         todotext
       }</p>
             <button class="close"><img src="./images/icon-cross.svg" alt=""></button>
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let check = todoColl.querySelector(".check");
     check.addEventListener("click", () => {
       check.classList.toggle("active-check");
-      todoColl.children[0].children[1].classList.toggle("completedItemdItemdItemdItem");
+      todoColl.children[0].children[1].classList.toggle("complete");
       updateLs();
     });
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ptag.forEach((element) => {
       arr.push({
         text: element.innerText,
-        completedItemdItemdItemdItem: element.classList.contains("completedItemdItemdItemdItem"),
+        complete: element.classList.contains("complete"),
       });
     });
     localStorage.setItem("todos", JSON.stringify(arr));
@@ -85,14 +85,14 @@ document.addEventListener("DOMContentLoaded", () => {
     todoli.forEach((elem) => {
       switch (filter) {
         case "Active":
-          if (!elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+          if (!elem.children[0].children[1].classList.contains("complete")) {
             elem.style.display = "block";
           } else {
             elem.style.display = "none";
           }
           break;
-        case "completedItemdItemdItemdItemd":
-          if (elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+        case "Completed":
+          if (elem.children[0].children[1].classList.contains("complete")) {
             elem.style.display = "block";
           } else {
             elem.style.display = "none";
@@ -106,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setitem();
   }
 
-  let clear = document.querySelector(".completedItemdItemdItemdItemd");
+  let clear = document.querySelector(".completed");
   clear.addEventListener("click", () => {
     let todoli = document.querySelectorAll(".todocoll");
     todoli.forEach((elem) => {
-      if (elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+      if (elem.children[0].children[1].classList.contains("complete")) {
         elem.remove();
         updateLs();
         setitem();
