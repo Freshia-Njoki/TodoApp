@@ -57,7 +57,7 @@ h1 {
   width: 60vw;
   margin-top: 2rem;
 }
-.todo-li {
+.list-item {
   display: flex;
   background-color: whitesmoke;
   padding: 1rem 0.9rem;
@@ -68,12 +68,12 @@ h1 {
   align-items: center;
 }
 
-.todo-li p {
+.list-item p {
   width: 92%;
   color: black;
 }
 
-.todo-li .check {
+.list-item .check {
   width: 20px;
   height: 20px;
   border: 1px solid hsl(233, 14%, 35%);
@@ -83,7 +83,7 @@ h1 {
   margin-right: 1rem;
   cursor: pointer;
 }
-.todo-li .close {
+.list-item .close {
   background: transparent;
   border: none;
   outline: none;
@@ -93,7 +93,7 @@ h1 {
   color: black;
 }
 
-.todo-li:hover .close {
+.list-item:hover .close {
   opacity: 1;
 }
 
@@ -110,9 +110,9 @@ h1 {
   border-radius: 5px;
   color: rgb(150, 139, 139);
   background-color: whitesmoke;
-
+  
   padding: 0.7rem;
-
+  
   width: 60vw;
 
   cursor: pointer;
