@@ -1,114 +1,128 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const todoForm = document.forms;
-  console.log(todoForm);
-  const todoInput = document.getElementById("todo-input");
-  const todoListContainer = document.querySelector(".todo-list");
+  const form = document.getElementById("todo-form");
+  const text = document.getElementById("todo-input");
+  const todoContainer = document.querySelector(".todo-list");
+  const footer = document.querySelector(".footer");
 
-  const deleteTodoItem = (e) => {
-    const todoItem = e.target.parentElement;
-    const todoId = todoItem.getAttribute("data-id"); //?
-    const todos = getTodosFromLocalStorage();
-    const updatedTodos = todos.filter((todo) => todo.id != todoId);
-    saveTodosToLocalStorage(updatedTodos);
-    todoListContainer.removeChild(todoItem);
-  };
-  const editTodoItem = (id, inputTypeElement) => {
-    inputTypeElement.disabled = !inputTypeElement.disabled;
-    if (!inputTypeElement.disabled) {
-        inputTypeElement.focus();
-    } else {
-      const todos = getTodosFromLocalStorage();
-      const updatedTodos = todos.map((todo) => {
-        if (todo.id == id) {
-          todo.text = inputTypeElement.value;
-        }
-        return todo;
-      });
-      saveTodosToLocalStorage(updatedTodos);
-    }
-  };
-
-  const addTodoToDOM = (todo) => {
-    const todoItem = document.createElement("div");
-    todoItem.classList.add("items");
-    todoItem.setAttribute("data-id", todo.id);
-
-    const radioBtn = document.createElement("input");
-    radioBtn.type = "radio";
-    radioBtn.name = "todo";
-
-    const todoTextInput = document.createElement("input");
-    todoTextInput.type = "text";
-    todoTextInput.value = todo.text;
-    todoTextInput.disabled = true;
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.style.backgroundColor = "red";
-    deleteBtn.style.color = "white";
-    deleteBtn.style.borderRadius = "3px";
-    deleteBtn.style.padding = "2px 7px";
-    deleteBtn.style.border = "none";
-
-    deleteBtn.addEventListener("click", deleteTodoItem);
-
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "Edit";
-    editBtn.style.backgroundColor = "green";
-    editBtn.style.color = "white";
-    editBtn.style.borderRadius = "3px";
-    editBtn.style.padding = "2px 7px";
-    editBtn.style.border = "none";
-
-    editBtn.addEventListener("click", () =>
-      editTodoItem(todo.id, todoTextInput)
-    );
-
-    todoItem.appendChild(radioBtn);
-    todoItem.appendChild(todoTextInput);
-    todoItem.appendChild(editBtn);
-    todoItem.appendChild(deleteBtn);
-
-    const footer = document.querySelector(".footer");
-    todoListContainer.insertBefore(todoItem, footer);
-  };
-
-  const loadTodos = () => {
-    const todos = getTodosFromLocalStorage();
-    todos.forEach((todo) => addTodoToDOM(todo));
-  };
-
-  const saveTodosToLocalStorage = (todos) => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  };
-
-  const getTodosFromLocalStorage = () => {
-    return JSON.parse(localStorage.getItem("todos"));
-  };
-
-  const addTodo = () => {
-    const todoText = todoInput.value.trim();
-    if (todoText === "") return;
-
-    const todo = {
-      // id: Date.now(),
-      text: todoText,
-      completed: false,
-    };
-
-    addTodoToDOM(todo);
-    const todos = getTodosFromLocalStorage();
-    todos.push(todo);
-    saveTodosToLocalStorage(todos);
-    todoInput.value = "";
-  };
-
-  todoInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      addTodo();
-    }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addTodo();
   });
 
-  loadTodos();
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  if (todos) {
+    todos.forEach((element) => {
+      addTodo(element);
+    });
+  }
+
+  function addTodo(todoElement) {
+    let todoColl = document.createElement("div");
+    todoColl.classList.add("todocoll");
+    console.log(todoColl);
+    let todotext = text.value;
+    if (todoElement) {
+      todotext = todoElement.text;
+    }
+    if (todotext) {
+      todoColl.innerHTML = `
+        <div class="todo-li">
+            <div class="check ${
+              todoElement && todoElement.completedItemdItemdItemdItemdItem ? "active-check" : ""
+            }"><img src="./images/icon-check.svg" alt=""></div>
+            <p class="ptag ${todoElement && todoElement.completedItemdItemdItemdItemdItem ? "completedItemdItemdItemdItemdItem" : ""}">${
+        todotext
+      }</p>
+            <button class="close"><img src="./images/icon-cross.svg" alt=""></button>
+        </div>
+        <div class="hr"></div>`;
+        todoContainer.insertBefore(todoColl, footer);
+      updateLs();
+    }
+
+    let close = todoColl.querySelector(".close");
+    close.addEventListener("click", () => {
+      todoColl.remove();
+      updateLs();
+    });
+
+    let check = todoColl.querySelector(".check");
+    check.addEventListener("click", () => {
+      check.classList.toggle("active-check");
+      todoColl.children[0].children[1].classList.toggle("completedItemdItemdItemdItem");
+      updateLs();
+    });
+
+    text.value = "";
+  }
+
+  function updateLs() {
+    let ptag = document.querySelectorAll(".ptag");
+    console.log(ptag);
+    let arr = [];
+    ptag.forEach((element) => {
+      arr.push({
+        text: element.innerText,
+        completedItemdItemdItemdItem: element.classList.contains("completedItemdItemdItemdItem"),
+      });
+    });
+    localStorage.setItem("todos", JSON.stringify(arr));
+  }
+
+  let info = document.querySelectorAll(".states ul li");
+  info.forEach((element) => {
+    element.addEventListener("click", () => {
+      info.forEach((item) => {
+        item.classList.remove("active");
+      });
+      element.classList.add("active");
+      filterTodos(element.innerText);
+    });
+  });
+
+  function filterTodos(filter) {
+    let todoli = document.querySelectorAll(".todocoll");
+    todoli.forEach((elem) => {
+      switch (filter) {
+        case "Active":
+          if (!elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+            elem.style.display = "block";
+          } else {
+            elem.style.display = "none";
+          }
+          break;
+        case "completedItemdItemdItemdItemd":
+          if (elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+            elem.style.display = "block";
+          } else {
+            elem.style.display = "none";
+          }
+          break;
+        default:
+          elem.style.display = "block";
+          break;
+      }
+    });
+    setitem();
+  }
+
+  let clear = document.querySelector(".completedItemdItemdItemdItemd");
+  clear.addEventListener("click", () => {
+    let todoli = document.querySelectorAll(".todocoll");
+    todoli.forEach((elem) => {
+      if (elem.children[0].children[1].classList.contains("completedItemdItemdItemdItem")) {
+        elem.remove();
+        updateLs();
+        setitem();
+      }
+    });
+  });
+
+  let left = document.querySelector(".items-left");
+  function setitem() {
+    let todoli = document.querySelectorAll(".todocoll");
+    let activeTodo = document.querySelectorAll(".todo-li .active-check");
+    let diff = todoli.length - activeTodo.length;
+    left.innerText = `${diff} items left`;
+  }
 });
